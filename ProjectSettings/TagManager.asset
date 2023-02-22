@@ -3,12 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - DeadZone
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
+<<<<<<< HEAD
   - Ground
+=======
+  - Enemy
+>>>>>>> 3acf1a6691127e75d54199de0c6ba66de8a6b3b8
   - Water
   - UI
   - 
