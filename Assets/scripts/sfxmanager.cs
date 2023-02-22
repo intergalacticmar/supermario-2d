@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class sfxmanager : MonoBehaviour
+public class SFXManager : MonoBehaviour
 {
     public AudioClip goombaDeath;
 

@@ -9,27 +9,30 @@ public class Enemy : MonoBehaviour
     float horizontal = 1;
 
     Animator anim;
+
     BoxCollider2D boxCollider;
+
     Rigidbody2D rBody;
-    sfxmanager sfxmanager;
-    soundmanager soundmanager;
+
+    SFXManager SFXManager;
+
+    SoundManager SoundManager;
 
     // Start is called before the first frame update
-
     void Start()
     {
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
         rBody = GetComponent<Rigidbody2D>();
 
-        sfxmanager = GameObject.Find("sfxmanager").GetComponent<sfxmanager>();
-        soundmanager = GameObject.Find("soundmanager").GetComponent<soundmanager>();
+        SFXManager = GameObject.Find("SFXManager").GetComponent<SFXManager>();
+        SoundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        rBody.velocity = new Vector2(horizontal * speed, rBody.velocity.y);
+       rBody.velocity = new Vector2(horizontal * speed, rBody.velocity.y);
     }
 
     public void Die()
@@ -39,17 +42,17 @@ public class Enemy : MonoBehaviour
         Destroy(this.gameObject, 0.5f);
     }
 
-    private void OnCollisionEnter2D(Collision2D other) 
+    void OnCollisionEnter2D(Collision2D collision) 
     {
-        if(other.gameObject.tag == "Player")
+        if(collision.gameObject.tag == "Player")
         {
             Debug.Log("Mario muerto");
-            Destroy(other.gameObject);
-            soundmanager.StopBGM();
-            sfxmanager.MarioDeath();
+            Destroy(collision.gameObject);
+            SoundManager.StopBGM();
+            SFXManager.MarioDeath();
         }
 
-        if(other.gameObject.tag == "CollisionGoomba")
+        if(collision.gameObject.tag == "ColisionGoomba")
         {
             if(horizontal == 1)
             {
@@ -61,4 +64,18 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+     void OnTriggerEnter2D(Collider2D collider) 
+     {
+        if(collider.gameObject.tag == "ColisionGoomba")
+        {
+            if(horizontal == 1)
+            {
+                horizontal = -1;
+            }
+            else
+            {
+                horizontal = 1;
+            }
+        }
+     }
 }
